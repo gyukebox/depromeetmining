@@ -29,3 +29,6 @@ def test_mentioned():
     :return:
     """
     pass
+
+
+test_names()
