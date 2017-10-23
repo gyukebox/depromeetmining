@@ -1,9 +1,8 @@
 import csv
 import pandas as pd
-import numpy as np
 
 
-class Depromeet:
+class KakaoAnalysis:
     def __init__(self):
         self.file = open('data.csv', 'r', encoding='utf8')
         self.reader = csv.reader(self.file)

@@ -1,7 +1,7 @@
-from analysis import Depromeet
+from src.analysis.kakao_analysis import KakaoAnalysis
 
 # 객체 생성
-sample = Depromeet()
+sample = KakaoAnalysis()
 
 
 def test_names():
