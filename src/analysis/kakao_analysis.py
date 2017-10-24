@@ -1,8 +1,7 @@
 import csv
-import json
 import pandas as pd
-
-from konlpy.tag import Kkma
+from collections import Counter
+from konlpy.tag import Kkma, Mecab
 
 # temporary path for file
 PATH = '/Users/gyukebox/depromeet/depromeet_mining/src/analysis'
@@ -17,10 +16,31 @@ class KakaoAnalysis:
     def __str__(self):
         return '디프만 카톡방 데이터 분석하는 클래스'
 
-    @staticmethod
-    def store_to_json(data, filename):
-        with open(filename, 'w', encoding='utf8') as file:
-            json.dump(data, file, ensure_ascii=False, indent=2)
+    # TODO implemention of function
+    def _preprocess(self, conversation):
+        """
+        Preprocesses data(카카오톡 대화 중 필요없는 내용 삭제)
+        :return: preprocessed data
+        """
+        # 이모티콘 삭제
+        while True:
+            try:
+                conversation.remove('(이모티콘)')
+            except ValueError:
+                break
+        # 사진들 삭제
+        while True:
+            try:
+                conversation.remove('사진')
+            except ValueError:
+                break
+        # 불필요한 줄바꿈 삭제
+        while True:
+            try:
+                conversation.remove('\n')
+            except ValueError:
+                break
+        return conversation
 
     def _rewind(self):
         """
@@ -35,8 +55,17 @@ class KakaoAnalysis:
         :return: Set of names
         """
         self._rewind()
-        result = {row[1] for row in self.reader}
+        return {row[1] for row in self.reader}
+
+    def get_all_conversations(self):
+        self._rewind()
+        result = list()
+        for row in self.reader:
+            single_conversation = row[2].split(' ')
+            for word in single_conversation:
+                result.append(word)
         return result
+        # return [row[2] for row in self.reader]
 
     def get_people_number(self):
         """
@@ -67,19 +96,50 @@ class KakaoAnalysis:
         Returns how many times that people has been mentioned in conversation
         :return: DataFrame object containing person's name and number of mentions
         """
-        # 모든 대화를 담는다
-        all_conversations = list()
         self._rewind()
-        for row in self.reader:
-            all_conversations.append(row[2])
-        for conv in all_conversations:
-            print(conv)
-            # 자연어 처리 한다
-            # 이름 집합이랑 비교 한다
-            # 카운터로 세서 값 리턴해본다
-        return None
+
+        # get all conversations
+        all_conversations = self.get_all_conversations()
+
+        # word parser objects
+        mecab = Mecab()
+        kkma = Kkma()
+
+        # parse all conversation words, and get only nouns
+        all_nouns = list()
+        for conversation in all_conversations:
+            all_nouns += mecab.nouns(conversation)
+
+        # exclude family name(성) from name
+        names_list = list()
+        for name in self.get_all_names():
+            preprocessed_name = kkma.nouns(name)
+            for data in preprocessed_name:
+                if len(data) != 1:
+                    names_list.append(data)
+
+        # compare two list
+        mentioned_people = [person for person in all_nouns if person in names_list]
+
+        # count using Counter and return
+        cnt = Counter(mentioned_people)
+        return cnt.most_common(len(cnt))
+
+    def find_common_topic(self):
+        """
+        Finds common topic of overall conversation, and stores into csv file.
+        :return: void. csv file will be generated
+        """
+        # Get conversation
+        self._rewind()
+        all_conversations = self._preprocess(self.get_all_conversations())
+
+        freq = Counter(all_conversations)
+        print(freq.most_common(100))
 
 
 if __name__ == '__main__':
     sample = KakaoAnalysis()
-    sample.find_most_mentioned()
+    print(sample.find_loquacity())
+    # print(sample.find_most_mentioned())
+    sample.find_common_topic()

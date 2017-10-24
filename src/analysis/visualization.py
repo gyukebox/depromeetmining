@@ -20,7 +20,7 @@ class Visualizer:
         data = np.array([datum[1] for datum in dataset])
         names = [datum[0] for datum in dataset]
         fig, ax = plt.subplots()
-        rects1 = ax.bar(np.arange(len(data)), data)
+        _ = ax.bar(np.arange(len(data)), data)
         ax.set_xticklabels(names)
         plt.show()
 
@@ -41,6 +41,6 @@ class Visualizer:
         labels = [row[1] for row in pdframe.itertuples()]
         for bar, label in zip(bar, labels):
             height = bar.get_height()
-            ax.text(bar.get_x() + bar.get_width()/2, height + 5, label, ha='center', va='bottom')
+            ax.text(bar.get_x() + bar.get_width()/2, height + 3, label, ha='center', va='bottom')
 
         plt.show()
