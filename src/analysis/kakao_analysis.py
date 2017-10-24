@@ -2,10 +2,13 @@ import csv
 import json
 import pandas as pd
 
+# temporary path for file
+PATH = '/Users/gyukebox/depromeet/depromeet_mining/src/analysis'
+
 
 class KakaoAnalysis:
     def __init__(self):
-        self.file = open('data.csv', 'r', encoding='utf8')
+        self.file = open('{}/data.csv'.format(PATH), 'r', encoding='utf8')
         self.reader = csv.reader(self.file)
         self.frame = pd.read_csv(self.file)
 
@@ -53,7 +56,9 @@ class KakaoAnalysis:
             else:
                 data[row[2]] = len(row[3])
         data = sorted(data.items(), key=lambda x: x[1], reverse=True)
-        return pd.DataFrame(data, columns=['Name', 'words'])  # most 10
+        indices = [datum[0] for datum in data[:10]]
+        values = [datum[1] for datum in data[:10]]
+        return pd.DataFrame(index=indices, data=values, columns=['words'])
 
     def find_most_mentioned(self):
         """

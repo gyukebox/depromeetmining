@@ -1,5 +1,5 @@
 import numpy as np
-import pandas as pd
+from matplotlib import rc
 import matplotlib.pyplot as plt
 
 
@@ -11,7 +11,12 @@ class Visualizer:
         return 'Visualization methods class'
 
     def plot_bar(self, dataset):
-        pass
+        data = np.array([datum[1] for datum in dataset])
+        names = [datum[0] for datum in dataset]
+        fig, ax = plt.subplots()
+        rects1 = ax.bar(np.arange(len(data)), data)
+        ax.set_xticklabels(names)
+        plt.show()
 
     def plot_bar_pandas(self, pdframe):
         """
@@ -19,5 +24,6 @@ class Visualizer:
         :param pdframe: pandas DataFrame
         :return: void. Graph will shown in GUI or Jupyter console
         """
-        pdframe.plot()
-
+        rc('font', family='AppleGothic')
+        pdframe.plot.bar()
+        plt.show()
