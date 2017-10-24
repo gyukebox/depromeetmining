@@ -2,6 +2,8 @@ import csv
 import json
 import pandas as pd
 
+from konlpy.tag import Kkma
+
 # temporary path for file
 PATH = '/Users/gyukebox/depromeet/depromeet_mining/src/analysis'
 
@@ -56,20 +58,28 @@ class KakaoAnalysis:
             else:
                 data[row[2]] = len(row[3])
         data = sorted(data.items(), key=lambda x: x[1], reverse=True)
-        indices = [datum[0] for datum in data[:10]]
-        values = [datum[1] for datum in data[:10]]
+        indices = [datum[0] for datum in data[:15]]
+        values = [datum[1] for datum in data[:15]]
         return pd.DataFrame(index=indices, data=values, columns=['words'])
 
     def find_most_mentioned(self):
         """
-        가장 많이 언급된 사람을 찾아주는 함수
-        :return:
+        Returns how many times that people has been mentioned in conversation
+        :return: DataFrame object containing person's name and number of mentions
         """
+        # 모든 대화를 담는다
+        all_conversations = list()
+        self._rewind()
+        for row in self.reader:
+            all_conversations.append(row[2])
+        for conv in all_conversations:
+            print(conv)
+            # 자연어 처리 한다
+            # 이름 집합이랑 비교 한다
+            # 카운터로 세서 값 리턴해본다
+        return None
 
 
 if __name__ == '__main__':
     sample = KakaoAnalysis()
-    print(sample.get_all_names())
-    print(sample.get_people_number())
-    result = sample.find_loquacity()
-    print(result)
+    sample.find_most_mentioned()
