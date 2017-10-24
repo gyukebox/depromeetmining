@@ -62,6 +62,7 @@ target/
 .vscode/
 
 # Jupyter notebook(IPython notebook)
+*.ipynb
 .ipynb_checkpoints/
 
 # Other file format
