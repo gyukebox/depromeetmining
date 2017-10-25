@@ -13,6 +13,9 @@ class KakaoAnalysisTest:
     def test_loquacity(self):
         self.visulizer.plot_bar_pandas(self.testcase.find_loquacity())
 
+    def test_mentioned(self):
+        return self.testcase.find_most_mentioned()
+
 
 if __name__ == '__main__':
     test = KakaoAnalysisTest()
