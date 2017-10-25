@@ -4,7 +4,7 @@ from collections import Counter
 from konlpy.tag import Kkma, Mecab
 
 # temporary path for file
-PATH = '/Users/gyukebox/depromeet/depromeet_mining/src/analysis'
+PATH = '/Users/gyukebox/depromeet/depromeet_mining/data'
 
 
 class KakaoAnalysis:
