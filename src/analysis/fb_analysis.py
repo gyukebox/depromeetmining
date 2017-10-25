@@ -1,3 +1,4 @@
+import csv
 from konlpy.tag import Mecab
 from collections import Counter
 
@@ -49,4 +50,8 @@ if __name__ == '__main__':
     sample = FacebookAnalysis()
     file_names = ['interests.txt', 'likes.txt', 'dislikes.txt']
     for file_name in file_names:
-        print(sample.find_common(file_name))
+        common_category = sample.find_common(file_name)
+        with open('../../web/{}'.format(file_name), 'w', encoding='utf8') as csvfile:
+            csvfile.write('word,freq\n')
+            writer = csv.writer(csvfile)
+            writer.writerows(common_category)

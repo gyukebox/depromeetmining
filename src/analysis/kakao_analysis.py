@@ -134,12 +134,21 @@ class KakaoAnalysis:
         self._rewind()
         all_conversations = self._preprocess(self.get_all_conversations())
 
-        freq = Counter(all_conversations)
-        print(freq.most_common(100))
+        # perform nlp on all words of conversation
+        mecab = Mecab()
+        category = ['NNP', 'NNG']
+        keywords = [classification[0] for classification in mecab.pos(str(all_conversations)) if classification[1] in category]
+
+        freq = Counter(keywords).most_common(300)
+        return freq
 
 
 if __name__ == '__main__':
     sample = KakaoAnalysis()
     print(sample.find_loquacity())
     # print(sample.find_most_mentioned())
-    sample.find_common_topic()
+    topic = sample.find_common_topic()
+    with open('../../web/words.csv', 'w', encoding='utf8') as csvfile:
+        csvfile.write('word,freq\n')
+        writer = csv.writer(csvfile)
+        writer.writerows(topic)
