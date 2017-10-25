@@ -68,6 +68,7 @@ target/
 # Other file format
 *.csv
 *.json
+*.text
 
 # data formats
 data/
