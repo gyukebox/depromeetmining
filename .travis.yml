@@ -4,6 +4,7 @@ python:
   - "3.5"
   - "3.6"
 install:
+  - bash <(curl -s https://raw.githubusercontent.com/konlpy/konlpy/master/scripts/mecab.sh)
   - pip install -r requirements.txt
 script:
   - python test/kakao_analysis_test.py
