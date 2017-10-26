@@ -16,8 +16,8 @@ class KakaoAnalysis:
     def __str__(self):
         return '디프만 카톡방 데이터 분석하는 클래스'
 
-    # TODO implemention of function
-    def _preprocess(self, conversation):
+    @staticmethod
+    def _preprocess(conversation):
         """
         Preprocesses data(카카오톡 대화 중 필요없는 내용 삭제)
         :return: preprocessed data
