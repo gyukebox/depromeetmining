@@ -3,6 +3,8 @@ python:
   - "3.4"
   - "3.5"
   - "3.6"
+sudo: required
+dist: trusty
 install:
   - bash <(curl -s https://raw.githubusercontent.com/konlpy/konlpy/master/scripts/mecab.sh)
   - pip install -r requirements.txt
