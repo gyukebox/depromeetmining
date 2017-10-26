@@ -1,6 +1,6 @@
 # Depromeet 마이닝
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Build Status](https://travis-ci.org/gyukebox/depromeetmining.svg?branch=master)](https://travis-ci.org/gyukebox/depromeetmining) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 
 
@@ -15,8 +15,7 @@
 
 
 
-## 한번 시도해보고 싶으신 분들께
-
+## 한번 시도해보고 싶으신 분들께 
 우선 이 레포지토리를 clone 하세요.
 
 ```
@@ -34,14 +33,48 @@ $ pip install -r requirements.txt
 
 아차, 윈도우에서는 pip 가 잘 안 작동할 수 있으므로 그냥 anaconda 쓰시는 게 정신건강에 이로우실 수 있어요.
 
-코드를 다 받으셨다면, test 폴더에 들어가셔서,
+### 분석할 데이터 저장
+코드를 다 받으셨다면, 분석할 카카오톡 데이터가 필요하겠죠?  
+카카오톡 채팅방의 대화를 내보내기 하셔서, `data` 폴더에 `data.csv` 이름의 파일로 저장하시면 됩니다.  
+따라서, 전체 폴더의 구조는,
+
+```
+depromeet_mining/
+├── LICENSE.md
+├── README.md
+├── data
+│   ├── data.csv
+├── requirements.txt
+├── src
+│   ├── __init__.py
+│   ├── analysis
+│   │   ├── __init__.py
+│   │   ├── fb_analysis.py
+│   │   ├── kakao_analysis.py
+│   │   └── visualization.py
+│   └── api
+│       └── __init__.py
+├── test
+│   ├── __init__.py
+│   ├── fb_analysis_test.py
+│   └── kakao_analysis_test.py
+└── web
+    ├── index.html
+    ├── scripts
+    │   └── main.js
+    ├── styles
+    │   └── style.css
+```
+이런 식으로 구성됩니다!
+
+데이터도 가져오셨으면, test 폴더에 들어가셔서,
 
 ```
 $ python kakao_analysis_test.py
 ```
 
-와 같이 테스트 파일 이름을 넣고 파이썬 인터프리터를 실행시켜 주시면 됩니다.
-
+와 같이 테스트 파일 이름을 넣고 파이썬 인터프리터를 실행시켜 주시면 됩니다.  
+(현재 경로 문제 때문에 빌드가 계속해서 깨지는 중이네요ㅠㅠ)
 
 
 ## 라이브러리 스펙
