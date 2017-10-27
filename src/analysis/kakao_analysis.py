@@ -3,13 +3,12 @@ import pandas as pd
 from collections import Counter
 from konlpy.tag import Kkma, Mecab
 
-# temporary path for file
-PATH = '/Users/gyukebox/depromeet/depromeet_mining/data'
-
 
 class KakaoAnalysis:
     def __init__(self):
-        self.file = open('{}/data.csv'.format(PATH), 'r', encoding='utf8')
+        # temporary path for file
+        self._PATH = '/Users/gyukebox/depromeet/depromeet_mining/data'
+        self.file = open('{}/data.csv'.format(self._PATH), 'r', encoding='utf8')
         self.reader = csv.reader(self.file)
         self.frame = pd.read_csv(self.file)
 
@@ -94,7 +93,7 @@ class KakaoAnalysis:
     def find_most_mentioned(self):
         """
         Returns how many times that people has been mentioned in conversation
-        :return: DataFrame object containing person's name and number of mentions
+        :return: dictionary containing person's name and number of mentions
         """
         self._rewind()
 

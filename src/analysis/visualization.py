@@ -14,7 +14,7 @@ class Visualizer:
     def plot_bar(dataset):
         """
         Plots bar graph from given dataset(dictionary)
-        :param dataset: Dictionary-formatted data
+        :param dataset: data - list of tuples
         :return: void. Graph will shown in GUI or Jupyter console
         """
         data = np.array([datum[1] for datum in dataset])
