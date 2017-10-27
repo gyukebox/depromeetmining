@@ -23,7 +23,7 @@ class KakaoAnalysisTest:
         try:
             loquacity = self.analysis.find_loquacity()
             print(loquacity)
-            # self.visualizer.plot_bar_pandas(loquacity)
+            self.visualizer.plot_bar_pandas(loquacity)
             print()
             return True
         except Exception as e:
@@ -41,8 +41,14 @@ class KakaoAnalysisTest:
         print(description)
         print('=' * len(description))
 
-        print(self.analysis.find_most_mentioned())
-        print()
+        try:
+            print(self.analysis.find_most_mentioned())
+            print()
+            return True
+        except Exception as e:
+            print('Test failed. Error cause:')
+            print(e)
+            return False
 
     def test_common_topic(self):
         """
@@ -54,8 +60,14 @@ class KakaoAnalysisTest:
         print(description)
         print('=' * len(description))
 
-        print(self.analysis.find_common_topic())
-        print()
+        try:
+            print(self.analysis.find_common_topic())
+            print()
+            return True
+        except Exception as e:
+            print('Test failed. Error cause:')
+            print(e)
+            return False
 
 
 if __name__ == '__main__':
